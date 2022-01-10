@@ -17,19 +17,19 @@ RUN wget https://github.com/Mercury-Language/mercury-srcdist/archive/refs/tags/r
 RUN tar xzvf rotd-2022-01-09.tar.gz && cd mercury-srcdist-rotd-2022-01-09 
 RUN echo 'source /etc/profile' >> /root/.bashrc
 # rebuild the same ROTD within the docker image for security-minded users
-RUN source /etc/profile && ./configure && make install PARALLEL=-j4 
+RUN /bin/bash /etc/profile && ./configure && make install PARALLEL=-j4 
 RUN rm -rf /mercury-srcdist-rotd-2022-01-09
 # now with this secured ROTD build the Mercury git source
 RUN git clone --depth=1 -b master --single-branch https://github.com/Mercury-Language/mercury.git
 # synchronize the ROTD and git source dates otherwise it may not build
 RUN cd mercury && git reset --hard 06f81f1cf0d339ade0137bc2e145712872cecd59
-RUN source /etc/profile && ./prepare.sh 
+RUN /bin/bash /etc/profile && ./prepare.sh 
 RUN ./configure --disable-most-grades && make install PARALLEL=-j4 
 RUN echo PATH='$PATH:/usr/local/mercury-DEV/bin' >> /etc/profile
 RUN rm -rf /mercury
 # do the same for emacs, with Mercury support for etags (source code tagging)
 RUN git clone --depth=1 -b master --single-branch git://git.sv.gnu.org/emacs.git
-RUN cd emacs && source /etc/profile && ./autogen.sh
+RUN cd emacs && /bin/bash /etc/profile && ./autogen.sh
 RUN ./configure --prefix=/usr/local/emacs-DEV && make install -j4 
 # adjust paths and cleanup
 RUN echo PATH='$PATH:/usr/local/emacs-DEV/bin' >> /etc/profile
