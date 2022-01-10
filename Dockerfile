@@ -30,23 +30,26 @@ RUN echo PATH='$PATH:/usr/local/mercury-DEV/bin' >> /etc/profile
 RUN rm -rf /mercury
 # do the same for emacs, with Mercury support for etags (source code tagging)
 RUN git clone --depth=1 -b master --single-branch git://git.sv.gnu.org/emacs.git
-RUN cd emacs && ./autogen.sh
-RUN /bin/bash configure --prefix=/usr/local/emacs-DEV && make install -j4 
+RUN cd emacs && /bin/bash autogen.sh \
+   && /bin/bash configure --prefix=/usr/local/emacs-DEV \
+   && make install -j4 
+# companion tools, you may add tools to his list below as you wish:   
+RUN apt install -y vim nano gdb
 # adjust paths and cleanup
 RUN echo PATH='$PATH:/usr/local/emacs-DEV/bin' >> /etc/profile
 RUN echo MANPATH='$MANPATH:/usr/local/mercury-rotd-2022-01-09/man' >> /etc/profile
 RUN echo INFOPATH='$INFOPATH:/usr/local/mercury-rotd-2022-01-09/info' >> /etc/profile
-RUN echo "(add-to-list 'load-path \
-"/usr/local/mercury-rotd-2022-01-09/lib/mercury/elisp") \
-(autoload 'mdb "gud" "Invoke the Mercury debugger" t)" >> /root/.emacs
+RUN echo "(add-to-list 'load-path \n\
+\"/usr/local/mercury-rotd-2022-01-09/lib/mercury/elisp\") \n\
+(autoload 'mdb \"gud\" \"Invoke the Mercury debugger\" t)" >> /root/.emacs
 RUN rm -rf /emacs
-RUN echo '#!/bin/bash \
-PATH0=$PATH \
-PATH=/usr/local/mercury-DEV/bin:$PATH mmc "$@"\
+RUN echo '#!/bin/bash \n\
+PATH0=$PATH \n\
+PATH=/usr/local/mercury-DEV/bin:$PATH mmc "$@" \n\
 PATH=$PATH0' > /usr/local/bin/mmc-dev && chmod +x /usr/local/bin/mmc-dev
-RUN echo '#!/bin/bash \
-PATH0=$PATH \
-PATH=/usr/local/mercury-DEV/bin:$PATH mmake "$@" \
+RUN echo '#!/bin/bash \n\
+PATH0=$PATH \n\
+PATH=/usr/local/mercury-DEV/bin:$PATH mmake "$@" \n\
 PATH=$PATH0' > /usr/local/bin/mmake-dev && chmod +x /usr/local/bin/mmake-dev
 
 
