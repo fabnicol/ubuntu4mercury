@@ -64,7 +64,7 @@ Details are given on how to use `etags` for Mercury in the man page
 
 Mercury compilers and emacs have been built within the Docker image in
 the course of its building process. A ROTD built under Gentoo from
-original sources is downloaded and used as a bootstriping compiler,
+original sources is downloaded and used as a bootstrapping compiler,
 then is replaced by the same ROTD rebuilt within the Docker image.
 
 ## Invocation
