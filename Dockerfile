@@ -21,10 +21,11 @@ ENV PATH=/usr/local/mercury-rotd-2022-01-09/bin:$PATH
 RUN cd mercury-srcdist-rotd-2022-01-09 && /bin/bash configure && make install PARALLEL=-j4 
 RUN rm -rf /mercury-srcdist-rotd-2022-01-09
 # now with this secured ROTD build the Mercury git source
-RUN git clone --depth=1 -b master --single-branch https://github.com/Mercury-Language/mercury.git
+RUN git clone --shallow-since=2022-01-09 -b master --single-branch https://github.com/Mercury-Language/mercury.git
 # synchronize the ROTD and git source dates otherwise it may not build
-RUN cd mercury && git reset --hard 06f81f1cf0d339ade0137bc2e145712872cecd59
-RUN ./prepare.sh && /bin/bash configure --disable-most-grades && make install PARALLEL=-j4 
+RUN cd /mercury \
+   && /bin/bash prepare.sh && /bin/bash configure --disable-most-grades \
+   && make install PARALLEL=-j4 
 RUN echo PATH='$PATH:/usr/local/mercury-DEV/bin' >> /etc/profile
 RUN rm -rf /mercury
 # do the same for emacs, with Mercury support for etags (source code tagging)
@@ -39,5 +40,13 @@ RUN echo "(add-to-list 'load-path \
 "/usr/local/mercury-rotd-2022-01-09/lib/mercury/elisp") \
 (autoload 'mdb "gud" "Invoke the Mercury debugger" t)" >> /root/.emacs
 RUN rm -rf /emacs
+RUN echo '#!/bin/bash \
+PATH0=$PATH \
+PATH=/usr/local/mercury-DEV/bin:$PATH mmc "$@"\
+PATH=$PATH0' > /usr/local/bin/mmc-dev && chmod +x /usr/local/bin/mmc-dev
+RUN echo '#!/bin/bash \
+PATH0=$PATH \
+PATH=/usr/local/mercury-DEV/bin:$PATH mmake "$@" \
+PATH=$PATH0' > /usr/local/bin/mmake-dev && chmod +x /usr/local/bin/mmake-dev
 
 
