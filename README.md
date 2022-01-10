@@ -33,7 +33,7 @@ then is replaced by the same ROTD rebuilt within the Docker image.
 ## Invocation
 
 [do this once and for all if you downloaded the compressed image from github]   
-`tar xJvf ubuntu4mercury.tar.xz > docker load`   
+`tar xJvf --to-stdout ubuntu4mercury.tar.xz | docker load`   
 
 `# docker run -it ubuntu:mercury`  
 `ubuntu:mercury # mmc / mmake`: for ROTD versions.   
