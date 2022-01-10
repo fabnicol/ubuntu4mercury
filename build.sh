@@ -19,7 +19,7 @@ if [ $# = 1 ]
 then
     echo "Using git source revision $1"
     sed "s/06f81f1cf0d339a/$1/g" Dockerfile.in > Dockerfile2
-    sed -i "s/@/2022-01-09/g" Dockerfile2
+    sed -i "s/-@/-2022-01-09/g" Dockerfile2
     DOCKERFILE="Dockerfile2"
     REVISION="$1"
     DATE="2022-01-09"
@@ -27,7 +27,7 @@ elif [ $# = 2 ] && [ "$2" != "06f81f1cf0d339a" ]
 then
     echo "Using ROTD dated $1 and git source revision $2"
     sed "s/REVISION/$2/g" Dockerfile.in > Dockerfile2
-    sed -i "s/@/$1/g" Dockerfile2
+    sed -i "s/-@/-$1/g" Dockerfile2
     DOCKERFILE="Dockerfile2"
     REVISION="$2"
     DATE="$1"
