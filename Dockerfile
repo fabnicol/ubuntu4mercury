@@ -22,7 +22,6 @@ RUN apt update && apt upgrade -y
 RUN apt install -y wget git xz-utils build-essential flex bison libtool texinfo info \
                    libgif-dev libgnutls28-dev mailutils pkg-config \
                    libncurses-dev libxaw7-dev libjpeg-dev libpng-dev libtiff-dev
-RUN apt autoremove -y
 # download auxiliary ROTD build, to bootstrap image building
 RUN wget https://github.com/fabnicol/ubuntu4mercury/releases/download/v1.0/rotd.tar.xz
 RUN tar xJvf rotd.tar.xz && rm rotd.tar.xz 
