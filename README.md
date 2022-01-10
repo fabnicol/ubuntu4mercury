@@ -2,6 +2,14 @@
    
 Ubuntu Docker image with fresh Mercury compilers
 
+## Pulling the image from Docker hub
+
+    sudo docker pull fabnicol/ubuntu4mercury:latest
+
+The Docker hub image will probably not be updated as frequently as 
+the Release section of this repository. Please read further to build
+the image from scratch.  
+  
 ## Building the Docker image
 
     git clone --depth=1 https://github.com/fabnicol/ubuntu4mercury.git
