@@ -1,16 +1,20 @@
 #!/bin/bash
-echo $'{\n  "experimental": true\n}' | sudo tee /etc/docker/daemon.json
-mkdir -p ~/.docker
-echo $'{\n  "experimental": "enabled"\n}' | sudo tee ~/.docker/config.json
-if ! service docker restart
-then
-    # for those with open-rc
-    rc-service docker restart
-fi    
 if ! docker version -f '{{.Client.Experimental}}' || ! docker version -f '{{.Server.Experimental}}'
 then
-    echo "Could not use experimental version of Docker. Remove --squash from script and run it again."
-    exit 1
+    echo $'{\n  "experimental": true\n}' | sudo tee /etc/docker/daemon.json
+    mkdir -p ~/.docker
+    echo $'{\n  "experimental": "enabled"\n}' | sudo tee ~/.docker/config.json
+    if ! service docker restart
+    then
+        # for those with open-rc
+        rc-service docker restart
+    fi    
+    if ! docker version -f '{{.Client.Experimental}}' || ! docker version -f '{{.Server.Experimental}}'
+    then
+        echo "Could not use experimental version of Docker. Remove --squash from script and run it again."
+        echo "(Also remove the present test!)"
+        exit 1
+    fi
 fi    
 
 if docker build --squash --file Dockerfile --tag ubuntu:mercury .
