@@ -23,7 +23,7 @@ RUN apt install -y wget git xz-utils build-essential flex bison libtool texinfo 
                    libgif-dev libgnutls28-dev mailutils pkg-config \
                    libncurses-dev libxaw7-dev libjpeg-dev libpng-dev libtiff-dev
 # download auxiliary ROTD build, to bootstrap image building
-RUN wget https://github.com/fabnicol/ubuntu4mercury/releases/download/v1.0/rotd.tar.xz
+RUN wget https://github.com/fabnicol/ubuntu4mercury/releases/download/v1.1/rotd.tar.xz
 RUN tar xJvf rotd.tar.xz && rm rotd.tar.xz 
 RUN echo PATH='/usr/local/mercury-rotd-2022-01-09/bin:$PATH' >> /etc/profile
 RUN wget https://github.com/Mercury-Language/mercury-srcdist/archive/refs/tags/rotd-2022-01-09.tar.gz 
