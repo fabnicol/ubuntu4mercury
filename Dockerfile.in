@@ -29,7 +29,7 @@ RUN echo PATH='/usr/local/mercury-rotd-@/bin:$PATH' >> /etc/profile
 RUN wget https://github.com/Mercury-Language/mercury-srcdist/archive/refs/tags/rotd-@.tar.gz
 RUN tar xzvf rotd-@.tar.gz
 RUN echo 'source /etc/profile' >> /root/.bashrc
-# rebuild the same ROTD within the docker image for security-minded users
+# rebuild the same ROTD dated @ within the docker image for security-minded users
 # using ENV as sourcing /etc/profile will do only when the image is created, not while building it.
 ENV PATH=/usr/local/mercury-rotd-2022-01-09/bin:$PATH
 RUN cd mercury-srcdist-rotd-@ && /bin/bash configure && make install PARALLEL=-j4
@@ -39,7 +39,9 @@ RUN if [ "@" != "2022-01-09" ]; then rm -rf /usr/local/mercury-rotd-2022-01-09; 
 RUN git clone --shallow-since=2022-01-08 \
               -b master https://github.com/Mercury-Language/mercury.git \
               && cd /mercury && git reset --hard REVISION
-# synchronize the ROTD and git source dates otherwise it may not build
+# Now use the fresh ROTD dated @ to build the git source at revision REVISION
+# synchronize the ROTD and git source dates otherwise it may not build              
+ENV PATH=/usr/local/mercury-rotd-@/bin:$PATH              
 RUN cd /mercury \
    && /bin/bash prepare.sh && /bin/bash configure --disable-most-grades \
    && make install PARALLEL=-j4
