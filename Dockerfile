@@ -1,8 +1,7 @@
-# name the portage image
-# for apt to be noninteractive
 FROM ubuntu:21.10
-ENV DEBIAN_FRONTEND noninteractive
-ENV DEBCONF_NONINTERACTIVE_SEEN true
+# for apt to be noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
+ENV DEBCONF_NONINTERACTIVE_SEEN=true
 RUN apt update && apt upgrade -y
 # build essentials
 RUN apt install -y wget git xz-utils build-essential flex bison libtool texinfo info \
@@ -17,6 +16,7 @@ RUN wget https://github.com/Mercury-Language/mercury-srcdist/archive/refs/tags/r
 RUN tar xzvf rotd-2022-01-09.tar.gz
 RUN echo 'source /etc/profile' >> /root/.bashrc
 # rebuild the same ROTD within the docker image for security-minded users
+# using ENV as sourcing /etc/profile will do only when the image is created, not while building it.
 ENV PATH=/usr/local/mercury-rotd-2022-01-09/bin:$PATH
 RUN cd mercury-srcdist-rotd-2022-01-09 && /bin/bash configure && make install PARALLEL=-j4 
 RUN rm -rf /mercury-srcdist-rotd-2022-01-09
