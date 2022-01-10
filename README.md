@@ -32,11 +32,11 @@ then is replaced by the same ROTD rebuilt within the Docker image.
 
 ## Invocation
 
-[do this once and for all]   
-`tar xJvf ubuntu4mercury.tar.xz > docker load
+[do this once and for all if you downloaded the compressed image from github]   
+`tar xJvf ubuntu4mercury.tar.xz > docker load`   
 
 `# docker run -it ubuntu:mercury`  
-`mmc / mmake`: for ROTD versions.   
-`mmc-dev / mmake-dev`: for Mercury git source versions.   
+`ubuntu:mercury # mmc / mmake`: for ROTD versions.   
+`ubuntu:mercury # mmc-dev / mmake-dev`: for Mercury git source versions.   
 
 
