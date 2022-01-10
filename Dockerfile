@@ -51,5 +51,6 @@ RUN echo '#!/bin/bash \n\
 PATH0=$PATH \n\
 PATH=/usr/local/mercury-DEV/bin:$PATH mmake "$@" \n\
 PATH=$PATH0' > /usr/local/bin/mmake-dev && chmod +x /usr/local/bin/mmake-dev
+RUN apt -y autoremove --purge && apt -y clean
 
 
