@@ -37,7 +37,7 @@ RUN rm -rf /mercury-srcdist-rotd-2022-01-09
 # now with this secured ROTD build the Mercury git source
 RUN git clone --shallow-since=2022-01-08 \
               -b master https://github.com/Mercury-Language/mercury.git \
-              && git reset --hard 06f81f1cf0d339a
+              && cd /mercury && git reset --hard 06f81f1cf0d339a
 # synchronize the ROTD and git source dates otherwise it may not build
 RUN cd /mercury \
    && /bin/bash prepare.sh && /bin/bash configure --disable-most-grades \

@@ -14,7 +14,9 @@ For some time after the date of the ROTD mentioned in the Dockerfile,
 it is possible to try and build the compiler from git source at a given
 revision. For this, check official Mercury repository commits
 and change the revision after `git reset --hard` in the Dockerfile.   
-
+For example, for the rotd of Jan. 9, 2022, the corresponding revision
+06f81f1cf0d339a can be safely changed to 40ddd73098ae (Jan. 10, 2022).  
+  
 ## Contents
 
 The docker image has two Mercury compilers.   
