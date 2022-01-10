@@ -10,6 +10,11 @@ Ubuntu Docker image with fresh Mercury compilers
 
 ... or download from the Release section of this repository.
 
+For some time after the date of the ROTD mentioned in the Dockerfile, 
+it is possible to try and build the compiler from git source at a given
+revision. For this, check official Mercury repository commits
+and change the revision after `git reset --hard` in the Dockerfile.   
+
 ## Contents
 
 The docker image has two Mercury compilers.   
