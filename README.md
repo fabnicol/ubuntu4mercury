@@ -41,9 +41,11 @@ Examples:
     sudo ./build.sh 2022-01-10 4183b8d62f
 
 The date should be subsequent to 2022-01-09 and the revision to 06f81f1cf0d.
+Git revisions can be anything legal: revision hashes or HEAD, HEAD, HEAD~n
+(n an interger), etc.   
 Please note that the further from these references, the higher the risk of a
 build failure.  
-In the two argument case, if the build succeeds, the git source
+In the two-argument case, if the build succeeds, the git source
 revision indicated as the second argument has been built using the ROTD 
 compiler dated as the first argument.   
 
