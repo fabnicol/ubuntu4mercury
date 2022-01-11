@@ -42,7 +42,11 @@ Examples:
 
 The date should be subsequent to 2022-01-09 and the revision to 06f81f1cf0d.
 Git revisions can be anything legal: revision hashes or HEAD, HEAD, HEAD~n
-(n an interger), etc.   
+(n an interger), etc. However if you do not use revision hashes, the Docker
+cache system may mistakenly uncache a prior call to `git clone` and result
+in an outdated image. To avoid this, either delete the prior **ubuntu:mercuryHEAD**
+image (resp. ubuntu:mercuryHEAD^, etc.) *and all its dependencies* or use 
+a hash.   
 Please note that the further from these references, the higher the risk of a
 build failure.  
 In the two-argument case, if the build succeeds, the git source
