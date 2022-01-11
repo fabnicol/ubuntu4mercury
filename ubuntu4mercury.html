@@ -24,7 +24,7 @@ In the two-argument case, if the build succeeds, the git source revision indicat
 <pre><code>sudo docker system prune --all --volumes --force </code></pre>
 <h2 id="contents">Contents</h2>
 <p>The docker image has two Mercury compilers. The default compiler is the ROTD indicated in field <strong>rotd-date</strong> of the configuration file <strong>.config</strong>, built with all grades.<br />
-The development compiler is built from git source, with only the most useful C grades (configured with <strong>–disable-most-grades</strong>). The default revision is specified by the field m-rev in <strong>.config</strong>.<br />
+The development compiler is built from git source, with only the most useful C grades (configured with <strong>–disable-most-grades</strong>). The default revision is specified by the field <strong>m-rev</strong> in <strong>.config</strong>.<br />
 Both compilers can build themselves and somewhat newer versions.</p>
 <p>The image contains a reasonable set of development libraries and tools, including a build toolchain, gdb and vim. Emacs is built from development git source with tagging support for Mercury using <code>etags</code>. Details are given on how to use <code>etags</code> for Mercury in the man page (<code>man etags</code>).</p>
 <p>Mercury compilers and emacs have been built within the Docker image in the course of its building process. A ROTD built under Gentoo from original sources is downloaded and used as a bootstrapping compiler, then is replaced by the same ROTD rebuilt within the Docker image.</p>
