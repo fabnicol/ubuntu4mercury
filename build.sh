@@ -17,6 +17,32 @@
 
 if [ $# = 1 ]
 then
+    if [ "$1" = "--help" ] 
+    then
+        echo "USAGE: ./build" 
+        echo "       ./build git-revision"
+        echo "       ./build YYY-MM-DD git-revision"
+	echo 
+        echo "Examples: ./build 2022-01-10 4c6636982653"
+        echo "          ./build 2022-01-10 HEAD~3"
+        echo "          ./build HEAD"
+        echo "          ./build"
+	echo
+        echo "Without arguments, the builds uses"
+	echo "ROTD 2022-01-09 and git source code"
+	echo "at hash 06f81f1cf0d339a."
+        exit 0     
+    elif [ "$1" = "--version" ] 
+    then 
+        echo "ubuntu4mercury build script version $(cat VERSION)"
+        echo "Builds a Docker image with compilers"
+	echo "for the Mercury language (ROTD and git source)."
+        echo "(C) Fabrice Nicol 2022." 
+	echo "Licensed under the terms of the GPLv3."
+        echo "Please read file LICENSE in this directory."
+	exit 0
+    fi
+    
     echo "Using git source revision $1"
     sed "s/06f81f1cf0d339a/$1/g" Dockerfile.in > Dockerfile2
     sed -i "s/-@/-2022-01-09/g" Dockerfile2
