@@ -134,7 +134,7 @@ else
 fi
 if docker save ubuntu:mercury${REVISION} -o ubuntu4mercury.tar
 then
-  if  xz -9 -k -f ubuntu4mercury.tar && gzip -9 -v -f ubuntu4mercury.tar \
+  if  xz -9 -k -f ubuntu4mercury.tar && gzip -v -f ubuntu4mercury.tar \
                          && echo "ROTD DATE: ${DATE}" > SUMS \
                          && echo "GIT SOURCE REVISION: ${REVISION}" >> SUMS \
                          && echo b2sum: $(b2sum ubuntu4mercury.tar.xz) >> SUMS \
