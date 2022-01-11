@@ -19,14 +19,16 @@ if [ $# = 1 ]
 then
     if [ "$1" = "--help" ] 
     then
-        echo "USAGE: ./build" 
-        echo "       ./build git-revision"
-        echo "       ./build YYY-MM-DD git-revision"
+        echo "USAGE:" 
+	echo "       ./build.sh" 
+        echo "       ./build.sh git-revision"
+        echo "       ./build.sh YYY-MM-DD git-revision"
 	echo 
-        echo "Examples: ./build 2022-01-10 4c6636982653"
-        echo "          ./build 2022-01-10 HEAD~3"
-        echo "          ./build HEAD"
-        echo "          ./build"
+        echo "Examples:"
+	echo "          ./build.sh 2022-01-10 4c6636982653"
+        echo "          ./build.sh 2022-01-10 HEAD~3"
+        echo "          ./build.sh HEAD"
+        echo "          ./build.sh"
 	echo
         echo "Without arguments, the builds uses"
 	echo "ROTD 2022-01-09 and git source code"
@@ -62,6 +64,27 @@ else
     REVISION="06f81f1cf0d339a"
     DATE="2022-01-09"
 fi
+
+# Emacs can sometimes crash
+# In .config, a reference revision hash is given for a successful build
+# If either is left blank, HEAD is used in the Emacs git repository master branch.
+
+EMACS_REF_TEST="$(grep '^rev' .config | cut -f 2 -d\ )"
+EMACS_DATE_TEST="$(grep '^date' .config | cut -f2 -d\ )"
+
+if [ -z "${EMACS_REF_TEST}" ] || [ -z "${EMACS_DATE_TEST}" ]
+then 
+    EMACS_DATE=now
+    EMACS_REV=HEAD
+else 
+    EMACS_DATE="${EMACS_DATE_TEST}"
+    EMACS_REV="${EMACS_REF_TEST}"
+fi
+
+echo "Using Emacs source code at ${EMACS_DATE} and rev. ${EMACS_REV}"
+
+sed -i "s/EMACS_DATE/${EMACS_DATE}/g" ${DOCKERFILE}
+sed -i "s/EMACS_REV/${EMACS_REV}/g" ${DOCKERFILE}
 
 if ! docker version -f '{{.Client.Experimental}}' || ! docker version -f '{{.Server.Experimental}}'
 then
