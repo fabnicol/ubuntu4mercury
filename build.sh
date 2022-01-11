@@ -79,8 +79,8 @@ else
 
     echo "Using ROTD dated ${ROTD_DATE} and source rev. ${MERCURY_REV}"
 
-    sed "s/DATE/${ROTD_DATE}/g" Dockerfile.in > "${DOCKERFILE}"
-    sed "s/REVISION/${MERCURY_REV}/g" Dockerfile.in > "${DOCKERFILE}"
+    sed "s/-@/-${ROTD_DATE}/g" Dockerfile.in > "${DOCKERFILE}"
+    sed -i "s/REVISION/${MERCURY_REV}/g" "${DOCKERFILE}"
 
     REVISION="${MERCURY_REV}"
     DATE="${ROTD_DATE}"

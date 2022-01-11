@@ -1,6 +1,7 @@
 # ubuntu4mercury
 
-Ubuntu Docker image with fresh compilers for the [Mercury](https://github.com/Mercury-Language/mercury) language.  
+Ubuntu Docker image with fresh compilers for the
+[Mercury](https://github.com/Mercury-Language/mercury) language.  
 
 ## Pulling the image from Docker hub
 
@@ -18,17 +19,15 @@ the image from scratch.
 
 ... or download from the Release section of this repository.
 
-For some time after the date of the ROTD mentioned in the Dockerfile,
+For some time after the date of the ROTD mentioned in the generated Dockerfile,
 it is possible to try and build the compiler from git source at a given
-revision. For this, check official Mercury repository commits
-and change the revision REV  in the Dockerfile:
+revision. For this, check official Mercury repository commits. For example, 
+for the rotd of Jan. 9, 2022, the corresponding revision 06f81f1cf0d339a
+can be safely changed to 40ddd73098ae (Jan. 10, 2022). Then change the values
+of fields `rotd-date` (resp. `m-rev`) in the configuration file **.config** as 
+indicated in the comments of this file.   
 
-`... && git reset --hard REV`
-
-For example, for the rotd of Jan. 9, 2022, the corresponding revision
-06f81f1cf0d339a can be safely changed to 40ddd73098ae (Jan. 10, 2022).
-
-Alternatively you can use the script **build.sh** with arguments as follows:
+Alternatively, you can use the script **build.sh** with arguments as follows:
 
     # change the git source revision to be built:
     sudo ./build.sh REVISION
@@ -40,6 +39,7 @@ Examples:
     sudo ./build.sh 4183b8d62f
     sudo ./build.sh 2022-01-10 4183b8d62f
 
+Command line arguments always override field values in **.config**.  
 The date should be subsequent to 2022-01-09 and the revision to 06f81f1cf0d.
 Please note that the further from these references, the higher the risk of a
 build failure.  
@@ -50,7 +50,8 @@ compiler dated as the first argument.
 Git revisions can be anything legal: revision hashes or HEAD, HEAD, HEAD~n
 (n an interger), etc. However, if you do not use revision hashes, the Docker
 cache system may mistakenly uncache a prior call to `git clone` and result
-in an outdated image. To avoid this, either delete the prior **ubuntu:mercuryHEAD**
+in an outdated image.
+To avoid this, either delete the prior **ubuntu:mercuryHEAD**
 image (resp. ubuntu:mercuryHEAD^, etc.) *and all its dependencies* or use 
 a hash. In the former case, I usually clean up my Docker context to avoid any
 issue as follows:   
@@ -60,9 +61,11 @@ issue as follows:
 ## Contents
 
 The docker image has two Mercury compilers.
-The default compiler is the ROTD of Jan. 9, 2022, built with all grades.
+The default compiler is the ROTD indicated in field **rotd-date** of the
+configuration file **.config**, built with all grades.  
 The development compiler is built from git source, with only the most
-useful C grades (configured with **--disable-most-grades**).
+useful C grades (configured with **--disable-most-grades**). The default
+revision is specified by the field m-rev in **.config**.  
 Both compilers can build themselves and somewhat newer versions.
 
 The image contains a reasonable set of development libraries and tools,
