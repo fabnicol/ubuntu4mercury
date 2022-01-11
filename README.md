@@ -1,6 +1,6 @@
 # ubuntu4mercury
 
-Ubuntu Docker image with fresh Mercury compilers
+Ubuntu Docker image with fresh compilers for the [Mercury](https://github.com/Mercury-Language/mercury) language.  
 
 ## Pulling the image from Docker hub
 
@@ -41,17 +41,21 @@ Examples:
     sudo ./build.sh 2022-01-10 4183b8d62f
 
 The date should be subsequent to 2022-01-09 and the revision to 06f81f1cf0d.
-Git revisions can be anything legal: revision hashes or HEAD, HEAD, HEAD~n
-(n an interger), etc. However if you do not use revision hashes, the Docker
-cache system may mistakenly uncache a prior call to `git clone` and result
-in an outdated image. To avoid this, either delete the prior **ubuntu:mercuryHEAD**
-image (resp. ubuntu:mercuryHEAD^, etc.) *and all its dependencies* or use 
-a hash.   
 Please note that the further from these references, the higher the risk of a
 build failure.  
 In the two-argument case, if the build succeeds, the git source
 revision indicated as the second argument has been built using the ROTD 
 compiler dated as the first argument.   
+
+Git revisions can be anything legal: revision hashes or HEAD, HEAD, HEAD~n
+(n an interger), etc. However, if you do not use revision hashes, the Docker
+cache system may mistakenly uncache a prior call to `git clone` and result
+in an outdated image. To avoid this, either delete the prior **ubuntu:mercuryHEAD**
+image (resp. ubuntu:mercuryHEAD^, etc.) *and all its dependencies* or use 
+a hash. In the former case, I usually clean up my Docker context to avoid any
+issue as follows:   
+
+    sudo docker system prune --all --volumes --force 
 
 ## Contents
 
@@ -75,7 +79,7 @@ then is replaced by the same ROTD rebuilt within the Docker image.
 
 ## Invocation
 
-[do this once and for all if you downloaded the compressed image from github]
+[do this once and for all if you downloaded the compressed image from github]   
 `# xz -d ubuntu4mercury.tar.xz && docker load -i ubuntu4mercury.tar`
 
 `# docker run -it ubuntu:mercury`   
