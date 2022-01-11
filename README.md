@@ -65,7 +65,7 @@ The default compiler is the ROTD indicated in field **rotd-date** of the
 configuration file **.config**, built with all grades.  
 The development compiler is built from git source, with only the most
 useful C grades (configured with **--disable-most-grades**). The default
-revision is specified by the field m-rev in **.config**.  
+revision is specified by the field **m-rev** in **.config**.  
 Both compilers can build themselves and somewhat newer versions.
 
 The image contains a reasonable set of development libraries and tools,
