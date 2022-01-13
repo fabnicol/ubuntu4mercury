@@ -85,12 +85,14 @@ then is replaced by the ROTD rebuilt within the Docker container.
 [do this once and for all if you downloaded the compressed image from github]   
 `# xz -d ubuntu4mercury.tar.xz && docker load -i ubuntu4mercury.tar`
 
-`# docker run -it ubuntu:mercury`   
+`# docker run -it ubuntu:mercury [ or: fabnicol/ubuntu4mercury:latest if you pulled]`   
 `ubuntu:mercury # mmc / mmake`: for ROTD versions.   
 `ubuntu:mercury # mmc-dev / mmake-dev`: for Mercury git source versions.   
 `ubuntu:mercury # emacs` : to launch Emacs from within the running container.  
 
-To launch Emacs (in non-graphical mode) from your host computer, run:  
+To launch Emacs in the container from your host computer, run:  
 
     # docker run -it [your image name] /usr/local/emacs-DEV/bin/emacs
 
+Emacs should run just as well (in non-GUI mode) as on your host and `mmc / mmake` 
+will be in the PATH of the guest shell.  
