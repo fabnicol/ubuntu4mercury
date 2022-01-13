@@ -21,19 +21,19 @@ ROTD_DATE_TEST="$(grep '^rotd-date' .config | cut -f2 -d\ )"
 
 # ROTDS builds can sometimes crash
 # In .config, a reference revision hash is given for a successful build.
-# If either is left blank, 06f81f1cf0d339a is used in the Mercury 
+# If either is left blank, 06f81f1cf0d339a is used in the Mercury
 # git repository master branch and ROTD used is dated 2022-01-09
 # These parameters in .config can be overridden on command line
 
 if [ $# = 1 ]
 then
-    if [ "$1" = "--help" ] 
+    if [ "$1" = "--help" ]
     then
-        echo "USAGE:" 
-	echo "       ./build.sh" 
+        echo "USAGE:"
+	echo "       ./build.sh"
         echo "       ./build.sh git-revision"
         echo "       ./build.sh YYY-MM-DD git-revision"
-	echo 
+	echo
         echo "Examples:"
 	echo "          ./build.sh 2022-01-10 4c6636982653"
         echo "          ./build.sh 2022-01-10 HEAD~3"
@@ -43,18 +43,18 @@ then
         echo "Without arguments, the builds uses"
 	echo "ROTD 2022-01-09 and git source code"
 	echo "at hash 06f81f1cf0d339a."
-        exit 0     
-    elif [ "$1" = "--version" ] 
-    then 
+        exit 0
+    elif [ "$1" = "--version" ]
+    then
         echo "ubuntu4mercury build script version $(cat VERSION)"
         echo "Builds a Docker image with compilers"
 	echo "for the Mercury language (ROTD and git source)."
-        echo "(C) Fabrice Nicol 2022." 
+        echo "(C) Fabrice Nicol 2022."
 	echo "Licensed under the terms of the GPLv3."
         echo "Please read file LICENSE in this directory."
 	exit 0
     fi
-    
+
     echo "Using git source revision $1"
     sed "s/${MERCURY_REV}/$1/g" Dockerfile.in > "${DOCKERFILE}"
     sed -i "s/-@/-${ROTD_DATE}/g" Dockerfile
@@ -69,10 +69,10 @@ then
     DATE="$1"
 else
     if [ -z "${MERCURY_REV_TEST}" ] || [ -z "${ROTD_DATE_TEST}" ]
-    then 
+    then
         ROTD_DATE=2022-01-09
         MERCURY_REV=06f81f1cf0d339a
-    else 
+    else
         ROTD_DATE="${ROTD_DATE_TEST}"
         MERCURY_REV="${MERCURY_REV_TEST}"
     fi
@@ -94,10 +94,10 @@ EMACS_REF_TEST="$(grep '^rev' .config | cut -f 2 -d\ )"
 EMACS_DATE_TEST="$(grep '^date' .config | cut -f2 -d\ )"
 
 if [ -z "${EMACS_REF_TEST}" ] || [ -z "${EMACS_DATE_TEST}" ]
-then 
+then
     EMACS_DATE=now
     EMACS_REV=HEAD
-else 
+else
     EMACS_DATE="${EMACS_DATE_TEST}"
     EMACS_REV="${EMACS_REF_TEST}"
 fi
@@ -107,11 +107,17 @@ echo "Using Emacs source code at ${EMACS_DATE} and rev. ${EMACS_REV}"
 sed -i "s/EMACS_DATE/${EMACS_DATE}/g" ${DOCKERFILE}
 sed -i "s/EMACS_REV/${EMACS_REV}/g" ${DOCKERFILE}
 
-if ! docker version -f '{{.Client.Experimental}}' || ! docker version -f '{{.Server.Experimental}}'
+client=$(docker version -f '{{.Client.Experimental}}')
+server=$(docker version -f '{{.Server.Experimental}}')
+echo "Docker experimental client: $client"
+echo "Docker experimental server: $server"
+
+if  [ $client = false ] ||  [ $server = false ]
 then
-    echo $'{\n  "experimental": true\n}' | sudo tee /etc/docker/daemon.json
+    echo "Installing experimental Docker."
+    echo '{\n  "experimental": true\n}' | sudo tee /etc/docker/daemon.json
     mkdir -p ~/.docker
-    echo $'{\n  "experimental": "enabled"\n}' | sudo tee ~/.docker/config.json
+    echo '{\n  "experimental": "enabled"\n}' | sudo tee ~/.docker/config.json
     if ! service docker restart
     then
         # for those with open-rc
@@ -123,6 +129,8 @@ then
         echo "(Also remove the present test!)"
         exit 1
     fi
+else
+    echo "Experimental version checked."
 fi
 
 if docker build --squash --file ${DOCKERFILE} --tag ubuntu:mercury${REVISION} .
