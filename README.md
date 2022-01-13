@@ -7,7 +7,7 @@ Ubuntu Docker image with fresh compilers for the
 
     sudo docker pull fabnicol/ubuntu4mercury:latest
 
-The Docker hub image will probably not be updated as frequently as
+The Docker Hub image will probably not be updated as frequently as
 the Release section of this repository. Please read further to build
 the image from scratch.
 
@@ -48,7 +48,7 @@ revision indicated as the second argument has been built using the ROTD
 compiler dated as the first argument.   
 
 Git revisions can be anything legal: revision hashes or HEAD, HEAD, HEAD~n
-(n an interger), etc. However, if you do not use revision hashes, the Docker
+(n an integer), etc. However, if you do not use revision hashes, the Docker
 cache system may mistakenly uncache a prior call to `git clone` and result
 in an outdated image.
 To avoid this, either delete the prior **ubuntu:mercuryHEAD**
@@ -78,7 +78,7 @@ Details are given on how to use `etags` for Mercury in the man page
 Mercury compilers and emacs have been built within the Docker image in
 the course of its building process. A ROTD built under Gentoo from
 original sources is downloaded and used as a bootstrapping compiler,
-then is replaced by the same ROTD rebuilt within the Docker image.
+then is replaced by the ROTD rebuilt within the Docker container.
 
 ## Invocation
 
@@ -88,3 +88,9 @@ then is replaced by the same ROTD rebuilt within the Docker image.
 `# docker run -it ubuntu:mercury`   
 `ubuntu:mercury # mmc / mmake`: for ROTD versions.   
 `ubuntu:mercury # mmc-dev / mmake-dev`: for Mercury git source versions.   
+`ubuntu:mercury # emacs` : to launch Emacs from within the running container.  
+
+To launch Emacs (in non-graphical mode) from your host computer, run:  
+
+    # docker run -it [your image name] /usr/local/emacs-DEV/bin/emacs
+
