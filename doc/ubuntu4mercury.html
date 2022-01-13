@@ -31,9 +31,13 @@ Both compilers can build themselves and somewhat newer versions.</p>
 <h2 id="invocation">Invocation</h2>
 <p>[do this once and for all if you downloaded the compressed image from github]<br />
 <code># xz -d ubuntu4mercury.tar.xz &amp;&amp; docker load -i ubuntu4mercury.tar</code></p>
-<p><code># docker run -it ubuntu:mercury</code><br />
+<p><code># docker run -it ubuntu:mercury [ or: fabnicol/ubuntu4mercury:latest if you pulled]</code><br />
 <code>ubuntu:mercury # mmc / mmake</code>: for ROTD versions.<br />
 <code>ubuntu:mercury # mmc-dev / mmake-dev</code>: for Mercury git source versions.<br />
 <code>ubuntu:mercury # emacs</code> : to launch Emacs from within the running container.</p>
-<p>To launch Emacs (in non-graphical mode) from your host computer, run:</p>
+<p>To launch mmc (ROTD) in container from your host computer, run:</p>
+<pre><code># docker run -it [your image name] mmc [arguments]</code></pre>
+<p>Replace <code>mmc</code> (resp. <code>mmake</code>) with <code>mmc-dev</code> (resp. <code>mmake-dev</code>) for the git source development version.</p>
+<p>To launch Emacs in the container from your host computer, run:</p>
 <pre><code># docker run -it [your image name] /usr/local/emacs-DEV/bin/emacs</code></pre>
+<p>Emacs should run just as well (in non-GUI mode) as on your host and <code>mmc / mmake</code> will be in the PATH of the guest shell.</p>

@@ -90,6 +90,13 @@ then is replaced by the ROTD rebuilt within the Docker container.
 `ubuntu:mercury # mmc-dev / mmake-dev`: for Mercury git source versions.   
 `ubuntu:mercury # emacs` : to launch Emacs from within the running container.  
 
+To launch mmc (ROTD) in container from your host computer, run:   
+
+    # docker run -it [your image name] mmc [arguments]
+
+Replace `mmc` (resp. `mmake`) with `mmc-dev` (resp. `mmake-dev`) for the git
+source development version.   
+
 To launch Emacs in the container from your host computer, run:  
 
     # docker run -it [your image name] /usr/local/emacs-DEV/bin/emacs
