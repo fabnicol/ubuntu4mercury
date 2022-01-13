@@ -56,11 +56,17 @@ then
     fi
 
     echo "Using git source revision $1"
-    sed "s/${MERCURY_REV}/$1/g" Dockerfile.in > "${DOCKERFILE}"
+    sed "s/REVISION/$1/g" Dockerfile.in > "${DOCKERFILE}"
+    if [ -z "${ROTD_DATE_TEST}" ]
+    then
+       ROTD_DATE=2022-01-09
+    else
+       ROTD_DATE="${ROTD_DATE_TEST}"
+    fi
     sed -i "s/-@/-${ROTD_DATE}/g" Dockerfile
     REVISION="$1"
     DATE="${ROTD_DATE}"
-elif [ $# = 2 ] && [ "$2" != "${ROTD_DATE}" ]
+elif [ $# = 2 ]
 then
     echo "Using ROTD dated $1 and git source revision $2"
     sed "s/REVISION/$2/g" Dockerfile.in > "${DOCKERFILE}"
@@ -84,6 +90,15 @@ else
 
     REVISION="${MERCURY_REV}"
     DATE="${ROTD_DATE}"
+fi
+
+# Below replacing HEAD by hash to avoid cache issues with Docker.
+
+if [ "${REVISION}" = "HEAD" ]
+then
+    REVISION=$(git ls-remote https://github.com/Mercury-Language/mercury.git HEAD| cut -f1)
+    echo "Replacing non-hash revision with hash: ${REVISION}"
+    echo "Note: HEAD^, HEAD~n are unsupported."
 fi
 
 # Emacs can sometimes crash
@@ -123,7 +138,17 @@ then
         # for those with open-rc
         rc-service docker restart
     fi
-    if ! docker version -f '{{.Client.Experimental}}' || ! docker version -f '{{.Server.Experimental}}'
+
+    # Test again.
+
+    client=$(docker version -f '{{.Client.Experimental}}')
+    server=$(docker version -f '{{.Server.Experimental}}')
+    echo "Docker experimental client: $client"
+    echo "Docker experimental server: $server"
+
+    # If a failure, balk out and tell what to do.
+
+    if  [ $client = false ] ||  [ $server = false ]
     then
         echo "Could not use experimental version of Docker. Remove --squash from script and run it again."
         echo "(Also remove the present test!)"
@@ -140,6 +165,7 @@ else
     echo "Docker image creation failed."
     exit 2
 fi
+
 if docker save ubuntu:mercury${REVISION} -o ubuntu4mercury.tar
 then
   if  xz -9 -k -f ubuntu4mercury.tar && gzip -v -f ubuntu4mercury.tar \

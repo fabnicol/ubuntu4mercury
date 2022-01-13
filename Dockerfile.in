@@ -59,7 +59,7 @@ RUN git clone --shallow-since=2022-01-08 \
 ENV PATH=/usr/local/mercury-rotd-@/bin:$PATH
 RUN cd /mercury \
    && /bin/bash prepare.sh && /bin/bash configure --disable-most-grades \
-   && make install PARALLEL=-j4
+   && make install PARALLEL=-j4 && git rev-parse HEAD > HEAD_HASH
 RUN echo PATH='$PATH:/usr/local/mercury-DEV/bin' >> /etc/profile
 RUN rm -rf /mercury
 

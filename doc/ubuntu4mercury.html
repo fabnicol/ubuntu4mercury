@@ -20,8 +20,9 @@ sudo ./build.sh 2022-01-10 4183b8d62f</code></pre>
 <p>Command line arguments always override field values in <strong>.config</strong>.<br />
 The date should be subsequent to 2022-01-09 and the revision to 06f81f1cf0d. Please note that the further from these references, the higher the risk of a build failure.<br />
 In the two-argument case, if the build succeeds, the git source revision indicated as the second argument has been built using the ROTD compiler dated as the first argument.</p>
-<p>Git revisions can be anything legal: revision hashes or HEAD, HEAD, HEAD~n (n an integer), etc. However, if you do not use revision hashes, the Docker cache system may mistakenly uncache a prior call to <code>git clone</code> and result in an outdated image. To avoid this, either delete the prior <strong>ubuntu:mercuryHEAD</strong> image (resp. ubuntu:mercuryHEAD^, etc.) <em>and all its dependencies</em> or use a hash. In the former case, I usually clean up my Docker context to avoid any issue as follows:</p>
-<pre><code>sudo docker system prune --all --volumes --force </code></pre>
+<p>Git revisions can be: revision hashes or HEAD.<br />
+HEAD^, HEAD^^, HEAD~n are unsupported.<br />
+Non-hash revisions (like HEAD) will be replaced by hashes in the build process.</p>
 <h2 id="contents">Contents</h2>
 <p>The docker image has two Mercury compilers. The default compiler is the ROTD indicated in field <strong>rotd-date</strong> of the configuration file <strong>.config</strong>, built with all grades.<br />
 The development compiler is built from git source, with only the most useful C grades (configured with <strong>–disable-most-grades</strong>). The default revision is specified by the field <strong>m-rev</strong> in <strong>.config</strong>.<br />

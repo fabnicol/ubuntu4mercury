@@ -47,16 +47,9 @@ In the two-argument case, if the build succeeds, the git source
 revision indicated as the second argument has been built using the ROTD 
 compiler dated as the first argument.   
 
-Git revisions can be anything legal: revision hashes or HEAD, HEAD, HEAD~n
-(n an integer), etc. However, if you do not use revision hashes, the Docker
-cache system may mistakenly uncache a prior call to `git clone` and result
-in an outdated image.
-To avoid this, either delete the prior **ubuntu:mercuryHEAD**
-image (resp. ubuntu:mercuryHEAD^, etc.) *and all its dependencies* or use 
-a hash. In the former case, I usually clean up my Docker context to avoid any
-issue as follows:   
-
-    sudo docker system prune --all --volumes --force 
+Git revisions can be: revision hashes or HEAD.   
+HEAD^, HEAD^^, HEAD~n are unsupported.   
+Non-hash revisions (like HEAD) will be replaced by hashes in the build process.   
 
 ## Contents
 
