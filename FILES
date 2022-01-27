@@ -3,8 +3,15 @@ This repository contains the following files:
 .config.in:     A configuration file for build.sh. 
 build.sh:       The build script to create the Docker image.
 build_latest.sh Shorthand for ./build.sh $(./latest_rotd.sh) HEAD
+Dockerfile      Helper dockerfile only used by GitHub Actions for
+                pushing to Docker Hub.
+                Not to be used to build images directly.
+
 Dockerfile.in:  Instructions for 'docker build', with
                 dummy dates and revisions filled in by build.sh
+                This builds an image with a fresh ROTD, a
+                development version of the compiler and Emacs.
+
 LICENSE
 README.md
 VERSION         This is not a git tag.
