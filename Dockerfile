@@ -13,4 +13,4 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-FROM ubuntu:mercuryREVISION
+FROM ubuntu:mercury4cc70e64405c7a635b894354e38ab2842ffb7aa1

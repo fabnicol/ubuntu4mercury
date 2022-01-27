@@ -246,7 +246,7 @@ else
     exit 2
 fi
 
-echo "GIT SOURCE REVISION: ${REVISION}" > GIT_HEAD
+echo "${REVISION}" > GIT_HEAD
 
 if docker save ubuntu:mercury${REVISION} -o ubuntu4mercury.tar
 then

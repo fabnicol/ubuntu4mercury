@@ -45,7 +45,7 @@ m-rev    736b52c5c27d8741e
 # Number of parallel jobs for compiler Mercury source
 
 [jobs]
-threads 2
+threads 12
 
 # Compiler used for bootstrapping the builds
 
