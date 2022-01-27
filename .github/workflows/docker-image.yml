@@ -123,6 +123,7 @@ jobs:
           echo "MY_TAG=${MY_TAG}"
           echo "MY_TAG=${MY_TAG}" >> $GITHUB_ENV
           docker tag ${ID} ${MY_TAG}
+          echo "FROM ${MY_TAG}" > Dockerfile 
 
     - name: Build and push
       uses: docker/build-push-action@v2
@@ -131,6 +132,7 @@ jobs:
           pull: false
           push: true
           tags: ${{ env.MY_TAG }} 
+          cache-from: type=local
 
     - name: Retag
       run: |
