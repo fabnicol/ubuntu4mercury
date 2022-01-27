@@ -121,6 +121,7 @@ jobs:
           export ID=$(docker image ls -q | head -1)
           export MY_TAG=fabnicol/ubuntu4mercury:$(cat DATE)-$(cat GIT_HEAD)  
           echo "MY_TAG=${MY_TAG}"
+          echo "MY_TAG=${MY_TAG}" >> $GITHUB_ENV
           docker tag ${ID} ${MY_TAG}
 
     - name: Build and push
@@ -129,11 +130,11 @@ jobs:
           context: .
           pull: false
           push: true
-          tags: fabnicol/ubuntu4mercury:${MY_TAG} 
+          tags: ${{ env.MY_TAG }} 
 
     - name: Retag
       run: |
-          docker tag fabnicol/ubuntu4mercury:$(cat DATE)-$(cat GIT_HEAD)  \
+          docker ${{ env.MY_TAG }}  \
              fabnicol/ubuntu4mercury:latest
              
     - name: Build and push
