@@ -65,8 +65,6 @@ jobs:
             docker run --name ubuntu4mercury ${ID}
             sudo docker cp ubuntu4mercury:/usr/local/mercury-rotd-${date_latest} /usr/local
             tar cpJvf rotd.tar.xz /usr/local/mercury-rotd-${date_latest}
-            #sudo chown runner rotd.tar.xz ubuntu4mercury.tar*
-            #sudo chgrp docker rotd.tar.xz ubuntu4mercury.tar*
             echo "Files is directory: $(ls -al)"
             mkdir ${GITHUB_WORKSPACE}/tmp_ubuntu4mercury
             cp -v DATE GIT_HEAD SUMS ubuntu4mercury.tar* rotd.tar.xz Dockerfile \
