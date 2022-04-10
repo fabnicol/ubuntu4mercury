@@ -16,11 +16,11 @@ cflags  -march=core-avx2
 [emacs]
 # This is the date of the revision
 
-emacs-date 2022-01-09
+emacs-date 2022-04-10
 
 # The Emacs git source revision, master branch
 
-emacs-rev  73b15f45f9369f511985b7b424c1a6cc54b323c2
+emacs-rev  0b5c959db550351c18d9b9602cae4273e92f770d
 
 # Below indicate default values for ROTD date and mercury
 # git master source revision. These are default values when 
@@ -30,7 +30,7 @@ emacs-rev  73b15f45f9369f511985b7b424c1a6cc54b323c2
 [Mercury]
 # Date of the Mercury ROTD
 
-rotd-date 2022-01-17
+rotd-date 2022-03-30
 
 # Revision of the Mercury git source, master branch.
 # May be HEAD or a hash
@@ -59,6 +59,6 @@ bootstrap-date DATE_BC
 [Mercury git source]
 # Date at which to perform git --shallow-since= 
 
-since        2022-01-08
+since        2022-03-30
 url          https://github.com/Mercury-Language/mercury.git
 
