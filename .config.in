@@ -20,7 +20,7 @@ emacs-date 2022-04-10
 
 # The Emacs git source revision, master branch
 
-emacs-rev  0b5c959db550351c18d9b9602cae4273e92f770d
+emacs-rev  735b4519104
 
 # Below indicate default values for ROTD date and mercury
 # git master source revision. These are default values when 
@@ -30,12 +30,12 @@ emacs-rev  0b5c959db550351c18d9b9602cae4273e92f770d
 [Mercury]
 # Date of the Mercury ROTD
 
-rotd-date 2022-03-30
+rotd-date 2022-04-11
 
 # Revision of the Mercury git source, master branch.
 # May be HEAD or a hash
 
-m-rev    736b52c5c27d8741e
+m-rev    2c207e026cbb6652c552cd
 
 # For example one may uncomment the values below and comment
 # out the above:
