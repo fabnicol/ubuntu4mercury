@@ -8,7 +8,7 @@ Ubuntu Docker image with fresh compilers for the
     sudo docker pull fabnicol/ubuntu4mercury:latest
 ## Testing the Docker image
 
-    sudo docker -it fabnicol/gentoo4mercury:latest
+    sudo docker run -it fabnicol/gentoo4mercury:latest
      
 *Building the mercury-csv library on GH*   
      
