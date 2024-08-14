@@ -37,12 +37,8 @@ jobs:
         echo "------------------------------"
         echo
         sudo apt -y install coreutils util-linux xz-utils gawk
-        echo $'{\n  "experimental": true\n}' | sudo tee /etc/docker/daemon.json
         mkdir -p ~/.docker
-        echo $'{\n  "experimental": "enabled"\n}' | sudo tee ~/.docker/config.json
         sudo service docker restart
-        docker version -f '{{.Client.Experimental}}'
-        docker version -f '{{.Server.Experimental}}'
         # download existing DATE and if there is a newer ROTD, adjust
         export url_bc=$(awk '/^bootstrap-url/ {print $2}' .config.in)
         if ! wget ${url_bc}/DATE; then
