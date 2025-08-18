@@ -74,7 +74,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Upload artifact
-      uses: upload-artifact@v4.6.2
+      uses: actions/upload-artifact@v4.6.2
       with:
         name: ubuntu4mercury
         path: ${{ github.workspace }}/tmp_ubuntu4mercury/*
