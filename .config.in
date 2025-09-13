@@ -2,7 +2,7 @@
 # the start of line.
 
 [Gentoo]
-# This is ti be used only for the Gentoo image.
+# This is to be used only for the Gentoo image.
 # To be adjusted according to your compiler.
 # Optimally, cflags should be set at "-march=native"
 # The default use below is a good compromise between
@@ -16,11 +16,11 @@ cflags  -march=core-avx2
 [emacs]
 # This is the date of the revision
 
-emacs-date 2022-04-10
+emacs-date 2025-09-13
 
 # The Emacs git source revision, master branch
 
-emacs-rev  735b4519104
+emacs-dev 125b3588c9a6962
 
 # Below indicate default values for ROTD date and mercury
 # git master source revision. These are default values when 
@@ -59,6 +59,6 @@ bootstrap-date DATE_BC
 [Mercury git source]
 # Date at which to perform git --shallow-since= 
 
-since        2022-03-30
+since        2025-07-30
 url          https://github.com/Mercury-Language/mercury.git
 
