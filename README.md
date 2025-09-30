@@ -85,7 +85,7 @@ Please read further if you want to build the image from scratch.
 
 ## Versioning
 
-Version of the Mercury ROTD compiler (see above for CONTAINER_ID, the default is gentoo:mercury in this case):   
+Version of the Mercury ROTD compiler (see above for CONTAINER_ID, the default is ubuntu:mercury in this case):   
 
     sudo docker run CONTAINER_ID mmc --version
     
@@ -95,7 +95,7 @@ Git revision hash of the Mercury development compiler:
           
 ## Building the Docker image
 
-    git clone --depth=1 https://github.com/fabnicol/ubuntu4mercury.git
+   
     cd ubuntu4mercury
     sudo ./build.sh
     
