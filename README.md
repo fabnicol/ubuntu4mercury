@@ -22,8 +22,8 @@ Ubuntu Docker image with fresh compilers for the
    
     cd samples  
     make
-    wget https://support.oneskyapp.com/hc/en-us/article_attachments/202761727/example_2.json 
-    ./pretty example_1.json
+    wget https://filesamples.com/samples/code/json/sample2.json
+    ./pretty sample2.json
     (--> your pretty json file)
     exit
     
