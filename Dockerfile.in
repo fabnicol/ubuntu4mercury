@@ -69,7 +69,7 @@ RUN rm -rf /mercury
 # Do the same for emacs, with Mercury support for etags (source code tagging).
 
 RUN echo cloning since date="EMACS_DATE" rev="EMACS_REV" \
-    && git clone --shallow-since="EMACS_DATE" -b master https://github.com/emacs-mirror/emacs.git \
+    && git clone --depth=1 -b master https://github.com/emacs-mirror/emacs.git \
     && cd emacs && git reset --hard "EMACS_REV"
 
 RUN cd emacs && /bin/bash autogen.sh \
