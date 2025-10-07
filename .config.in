@@ -16,11 +16,11 @@ cflags  -march=core-avx2
 [emacs]
 # This is the date of the revision
 
-emacs-date 2025-09-13
+#emacs-date 2025-09-13
 
 # The Emacs git source revision, master branch
 
-emacs-dev 125b3588c9a6962
+#emacs-dev 125b3588c9a6962
 
 # Below indicate default values for ROTD date and mercury
 # git master source revision. These are default values when 
